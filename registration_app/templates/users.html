@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/logout"><button>Log Out</button></a> | <a href="/success"><button>Go Back</button></a>
+    <br>
+    <h1>Welcome, {{loggedinuser.firstname}}</h1>
+    <br>
+    <br>
+    <h1>{{specificuser.firstname}} {{specificuser.lastname}}'s Favorite Quotes</h1>
+    <br>
+    <br>
+    {% for info in specificuser.uploadedquotes.all%}
+    <h2>{{info.author}}</h2>
+    <p>{{info.quote}}</p>
+    {% endfor %}
+    
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/logout"><button>Log Out</button></a> | <a href="/edit"><button>Edit My Account</button></a>
+    <br>
+    <h1>Login Successful! Welcome Back, {{loggedinuser.firstname}} {{loggedinuser.lastname}}</h1>
+    <br>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <h1>Add A Quote</h1>
+    <form action="/addfavoritequote" method="post">
+        {% csrf_token %}
+        <p>Author: <input type="text" name="author" id=""></p>
+        <p>Quote:</p>
+        <textarea name="quote" id="" cols="30" rows="5"></textarea>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <br>
+    <h1>Quotes</h1>
+    {% for quote in quotelist %}
+    <div>
+        <h2>{{quote.author}}</h2>
+        <a>Posted By: </a><a href="/users/{{quote.uploader.id}}"><button>{{quote.uploader.firstname}} {{quote.uploader.lastname}}</button> | <a href=""><button>Like</button></a>
+        {% if quote.uploader == loggedinuser %}
+        <a href="/success/{{quote.id}}/delete"><button>Delete</button></a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>                                                                                                                         

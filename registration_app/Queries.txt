@@ -1,0 +1,148 @@
+# MY BOOKS #
+Book.objects.create(title = "Gone With The Wind", description = "Book About A Warrior", uploader = User.objects.get(id=1))
+Book.objects.create(title = "Letters From Iwo Jima", description = "Book About Letters Written By Japanese Soldiers During The Battle Of Iwo Jima", uploader = User.objects.get(id=1))
+Book.objects.create(title = "Vital Point Strikes", description = "Book About Martial Arts", uploader = User.objects.get(id=11))
+
+#--------------------------------------------------------------
+<!-- <p>Added By:{{bookinformation.uploader.firstname}} {{bookinformation.uploader.lastname}} </p>
+    <p>Added On: {{bookinformation.created_at}}</p>
+    <p>Last Updated on: {{bookinformation.updated_at}}</p>
+    <p>Description: {{bookinformation.description}}</p>
+    <br>
+    <br>
+    <h1>Users Who Like This Book:</h1>
+    <ul>
+        {% for user in bookinformation.likers.all%}
+            <li>{{user.firstname}} {{user.lastname}}</li>
+        {% endfor %}
+    </ul> -->
+
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/logout"><button>Log Out</button></a> | <a href="/success"><button>Go Back</button></a>
+    <br>
+    <h1>Welcome, {{loggedinuser.firstname}}</h1>
+    <br>
+    <br>
+    <br>
+    {% if quotestats.uploader != loggedinuser %}
+    <h1>{{quotestats.title}}</h1>
+    <p>Added By:{{quotestats.uploader.firstname}} {{quotestats.uploader.lastname}} </p>
+    <p>Added On: {{quotestats.created_at}}</p>
+    <p>Last Updated on: {{quotestats.updated_at}}</p>
+    <p>Description: {{quotestats.description}}</p>
+    {% endif %}
+<!----------------------------------------------------------------->
+
+    
+    <h1>{{quotestats.title}}</h1>
+    <form action="/edit/{{quotestats.id}}/update" method="post">
+    <p>Edit Title Here:</p><textarea name="title" value="{{quotestats.title}}" id="" cols="20" rows="2"></textarea>
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+        {% csrf_token %}
+        <p>Added By: {{quotestats.uploader.firstname}} {{quotestats.uploader.lastname}}</p>
+        <p>Added On: {{quotestats.created_at}}</p>
+        <p>Last Updated On: {{quotestats.updated_at}}</p>
+        <p>Description: {{quotestats.description}}</p>
+        
+        <br>
+        <p>Edit Description Here:</p>
+        <textarea name="description" value="{{quotestats.description}}"id="" cols="30" rows="4"></textarea>
+        <br>
+        <p><input type="submit" value="Update"></a></p>
+            </form>
+            <a href="/edit/{{quotestats.id}}/delete"><button>Delete</button></a>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Users Who Like This Quote:</h1>
+    <ul>
+    {% for user in quotestats.likers.all%}
+        <li>{{user.firstname}} {{user.lastname}}</li>
+    {% endfor %}
+    </ul>
+    <a href=""><button>Add To Favorites</button></a>
+</body>
+</html>
+
+#------------------------------------------------------------
+
+
+print("******",request.POST)
+	error = Quote.objects.quotevalidator(request.POST)
+	print('*********', error)
+	if len(error) > 0:
+		for key, value in error.items():
+			messages.error(request, value)
+		return redirect('/success')
+
+
+
+
+
+
+
+
+        <h1>{{quotestats.title}}</h1>
+    <form action="/edit/{{quotestats.id}}/update" method="post">
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{message}}</p>
+            {% endfor %}
+        {% csrf_token %}
+        <p>Added By: {{quotestats.uploader.firstname}} {{quotestats.uploader.lastname}}</p>
+        <p>Added On: {{quotestats.created_at}}</p>
+        <p>Last Updated On: {{quotestats.updated_at}}</p>
+        <p>Description: {{quotestats.description}}</p>
+        
+        <br>
+        <p>Edit Description Here:</p>
+        <textarea name="description" value="{{quotestats.description}}"id="" cols="30" rows="4"></textarea>
+        <br>
+        <p><input type="submit" value="Update"></a></p>
+            </form>
+            <a href="/edit/{{quotestats.id}}/delete"><button>Delete</button></a>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Users Who Like This Quote:</h1>
+    <ul>
+    {% for user in quotestats.likers.all%}
+        <li>{{user.firstname}} {{user.lastname}}</li>
+    {% endfor %}
+    </ul>
+    <a href=""><button>Add To Favorites</button></a>
+
+
+
+
+
+
+
+{% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{message}}</p>
+        {% endfor %}
+    {% csrf_token %}
